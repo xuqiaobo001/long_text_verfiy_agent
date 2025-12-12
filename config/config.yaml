@@ -1,0 +1,114 @@
+# 长文本审核Agent配置文件
+app:
+  name: "长文本审核Agent"
+  version: "1.0.0"
+  debug: true
+
+# 华为云MAAS API配置
+maas:
+  base_url: "https://api.modelarts-maas.com/v1"
+  model: "DeepSeek-V3"
+  api_key: "${MAAS_API_KEY}"  # 从环境变量获取
+  timeout: 120  # 请求超时时间(秒)
+  max_retries: 3  # 最大重试次数
+  retry_delay: 1  # 重试延迟(秒)
+
+# 文本处理配置
+text_processing:
+  # 分块配置
+  chunking:
+    strategy: "chapter"  # 分块策略: chapter, paragraph, semantic, fixed_size
+    max_chunk_size: 8000  # 最大块大小(字符数)
+    chunk_overlap: 200  # 块之间重叠字符数
+    min_chunk_size: 1000  # 最小块大小
+
+  # 章节识别配置
+  chapter_detection:
+    patterns:
+      - "^第[一二三四五六七八九十\\d]+章[\\s\\S]*?$"
+      - "^第[一二三四五六七八九十\\d]+节[\\s\\S]*?$"
+      - "^\\d+\\.[\\s\\S]*?$"
+      - "^[一二三四五六七八九十]+、[\\s\\S]*?$"
+    headers: ["h1", "h2", "h3"]  # 如果是HTML/PDF
+
+  # 编码配置
+  encoding:
+    default: "utf-8"
+    fallback: ["gbk", "gb2312", "big5"]
+
+# 审核配置
+review:
+  # 审核点配置文件路径
+  review_points_file: "config/review_points.yaml"
+
+  # 并行处理配置
+  parallel:
+    max_workers: 4  # 最大并行处理数
+    enable_parallel: true
+
+  # 审核结果配置
+  result:
+    output_format: "json"  # 输出格式: json, xml, yaml
+    save_intermediate: true  # 保存中间结果
+    output_dir: "output"
+
+  # 一致性检查配置
+  consistency_check:
+    enable: true
+    check_types:
+      - "terminology"  # 术语一致性
+      - "facts"  # 事实一致性
+      - "logic"  # 逻辑一致性
+      - "requirements"  # 需求一致性(合同等)
+    similarity_threshold: 0.8  # 相似度阈值
+
+# 缓存配置
+cache:
+  enable: true
+  type: "file"  # 缓存类型: file, redis, memory
+  ttl: 3600  # 缓存过期时间(秒)
+  max_size: 1000  # 最大缓存条目数
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# 限制配置
+limits:
+  max_file_size: 50  # MB
+  supported_formats:
+    - "txt"
+    - "docx"
+    - "pdf"
+    - "html"
+    - "md"
+  rate_limit:
+    requests_per_minute: 60
+    requests_per_hour: 1000
+
+# 特定场景配置
+scenarios:
+  contract:
+    required_checks:
+      - "legal_terms"
+      - "parties_consistency"
+      - "obligations"
+      - "timeline_consistency"
+
+  media:
+    required_checks:
+      - "fact_checking"
+      - "bias_detection"
+      - "sensitive_content"
+      - "source_verification"
+
+  academic:
+    required_checks:
+      - "citation_consistency"
+      - "methodology_description"
+      - "data_integrity"
+      - "plagiarism_check"

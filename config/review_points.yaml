@@ -1,0 +1,210 @@
+# 长文本审核点配置文件
+review_points:
+  # 通用审核点
+  general:
+    # 基础检查
+    basic:
+      - name: "格式规范"
+        description: "检查文档格式是否符合规范"
+        type: "format"
+        priority: "medium"
+        enabled: true
+
+      - name: "错别字检查"
+        description: "检查文本中的错别字和语法错误"
+        type: "language"
+        priority: "high"
+        enabled: true
+
+      - name: "标点符号"
+        description: "检查标点符号使用是否正确"
+        type: "format"
+        priority: "medium"
+        enabled: true
+
+    # 内容一致性
+    consistency:
+      - name: "术语一致性"
+        description: "检查全文术语使用是否一致"
+        type: "consistency"
+        priority: "high"
+        enabled: true
+        check_scope: "global"
+
+      - name: "名称一致性"
+        description: "检查人名、地名、机构名等是否一致"
+        type: "consistency"
+        priority: "high"
+        enabled: true
+        check_scope: "global"
+
+      - name: "数字一致性"
+        description: "检查数据、日期、金额等是否一致"
+        type: "consistency"
+        priority: "high"
+        enabled: true
+        check_scope: "global"
+
+    # 逻辑性检查
+    logic:
+      - name: "逻辑连贯性"
+        description: "检查内容逻辑是否连贯"
+        type: "logic"
+        priority: "medium"
+        enabled: true
+        check_scope: "local"
+
+      - name: "因果关系"
+        description: "检查因果关系是否合理"
+        type: "logic"
+        priority: "medium"
+        enabled: true
+        check_scope: "local"
+
+  # 合同审核专用点
+  contract:
+    legal_terms:
+      - name: "法律条款完整性"
+        description: "检查必要的法律条款是否完整"
+        type: "completeness"
+        priority: "critical"
+        enabled: true
+        required_items:
+          - "违约责任"
+          - "争议解决"
+          - "合同生效"
+          - "合同终止"
+
+      - name: "条款冲突"
+        description: "检查各条款之间是否存在冲突"
+        type: "conflict"
+        priority: "critical"
+        enabled: true
+
+    parties:
+      - name: "主体信息一致性"
+        description: "检查合同各方信息在全文中是否一致"
+        type: "consistency"
+        priority: "critical"
+        enabled: true
+        check_fields:
+          - "名称"
+          - "地址"
+          - "法定代表人"
+          - "联系方式"
+
+    obligations:
+      - name: "权利义务对等性"
+        description: "检查各方权利义务是否对等"
+        type: "fairness"
+        priority: "high"
+        enabled: true
+
+      - name: "义务可执行性"
+        description: "检查义务条款是否具体可执行"
+        type: "feasibility"
+        priority: "high"
+        enabled: true
+
+  # 传媒行业专用点
+  media:
+    fact_checking:
+      - name: "事实准确性"
+        description: "核实文中所述事实是否准确"
+        type: "accuracy"
+        priority: "critical"
+        enabled: true
+
+      - name: "信息来源"
+        description: "检查信息来源是否可靠"
+        type: "source"
+        priority: "high"
+        enabled: true
+
+    content_quality:
+      - name: "偏见检测"
+        description: "检测是否存在偏见或歧视性内容"
+        type: "bias"
+        priority: "high"
+        enabled: true
+
+      - name: "敏感内容"
+        description: "检查是否包含敏感或不当内容"
+        type: "sensitivity"
+        priority: "critical"
+        enabled: true
+
+      - name: "标题与内容一致性"
+        description: "检查标题是否准确反映内容"
+        type: "consistency"
+        priority: "medium"
+        enabled: true
+
+  # 学术论文专用点
+  academic:
+    structure:
+      - name: "结构完整性"
+        description: "检查论文结构是否完整"
+        type: "completeness"
+        priority: "high"
+        enabled: true
+        required_sections:
+          - "摘要"
+          - "引言"
+          - "方法论"
+          - "结果"
+          - "讨论"
+          - "结论"
+          - "参考文献"
+
+    citation:
+      - name: "引用一致性"
+        description: "检查文内引用与参考文献列表是否一致"
+        type: "consistency"
+        priority: "high"
+        enabled: true
+
+      - name: "引用格式"
+        description: "检查引用格式是否符合规范"
+        type: "format"
+        priority: "medium"
+        enabled: true
+
+    methodology:
+      - name: "方法描述清晰度"
+        description: "检查研究方法描述是否清晰可复现"
+        type: "clarity"
+        priority: "high"
+        enabled: true
+
+      - name: "数据完整性"
+        description: "检查数据展示是否完整准确"
+        type: "integrity"
+        priority: "high"
+        enabled: true
+
+# 审核点配置
+review_point_settings:
+  # 严重级别定义
+  severity_levels:
+    critical: "严重错误，必须修改"
+    high: "重要问题，建议修改"
+    medium: "一般问题，可选修改"
+    low: "轻微问题，仅供参考"
+
+  # 审核策略
+  strategies:
+    # 全局检查：需要检查整个文档
+    global_check:
+      description: "需要跨章节检查的审核点"
+      examples: ["术语一致性", "名称一致性", "数字一致性"]
+
+    # 局部检查：只需检查单个章节
+    local_check:
+      description: "只需在章节内部检查的审核点"
+      examples: ["格式规范", "错别字检查", "逻辑连贯性"]
+
+    # 依赖检查：需要参考其他章节
+    dependency_check:
+      description: "需要参考特定章节的审核点"
+      examples: ["引用一致性", "条款冲突"]
