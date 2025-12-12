@@ -1,0 +1,109 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+.env
+.venv
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project Specific
+logs/
+output/
+*.log
+temp/
+tmp/
+
+# API Keys and Secrets
+.env.local
+.env.*.local
+api_keys.txt
+secrets.json
+credentials.json
+config/local.yaml
+config/production.yaml
+config/staging.yaml
+
+# Test Files and Data - DO NOT COMMIT TEST DOCUMENTS
+test_file/
+test_data/
+tests/data/
+sample_data/
+contracts/
+docs/
+samples/
+
+# Generated Reports and Outputs
+*.xlsx
+*.xls
+*.csv
+reports/
+results/
+audit_reports/
+
+# Large Documents - DO NOT COMMIT
+*.pdf
+*.docx
+*.doc
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Cache and Temporary
+.cache/
+.pytest_cache/
+.mypy_cache/
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Model Files
+*.pkl
+*.pickle
+*.model
+*.h5
+*.hdf5
+
+# Database
+*.db
+*.sqlite
+*.sqlite3

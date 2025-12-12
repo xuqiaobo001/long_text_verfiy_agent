@@ -80,32 +80,28 @@
 - Python 3.8+
 - 华为云MAAS API访问权限
 
-### 安装步骤
+### 📦 安装
 
-1. **克隆项目**
+详细的安装说明请参考 [**INSTALL.md**](INSTALL.md)
+
+**快速安装步骤**：
 ```bash
+# 1. 克隆项目
 git clone <repository-url>
 cd long_text_review
-```
 
-2. **创建虚拟环境**
-```bash
-python -m venv venv
+# 2. 创建虚拟环境
+python3 -m venv venv
 source venv/bin/activate  # Linux/Mac
-# 或
-venv\Scripts\activate  # Windows
-```
 
-3. **安装依赖**
-```bash
+# 3. 安装依赖
 pip install -r requirements.txt
-```
 
-4. **配置API密钥**
-```bash
-export MAAS_API_KEY=your_api_key_here
-# 或创建 .env 文件
-echo "MAAS_API_KEY=your_api_key_here" > .env
+# 4. 配置API密钥
+echo "MAAS_API_KEY=your_api_key" > .env
+
+# 5. 验证安装
+python install_check.py
 ```
 
 ### 基本使用
@@ -496,6 +492,12 @@ A: 支持格式：
 
 ---
 
+## 📚 文档索引
+
+- **[INSTALL.md](INSTALL.md)** - 详细安装指南
+- **[QUICKSTART.md](QUICKSTART.md)** - 快速开始指南
+- **[GITIGNORE_GUIDE.md](GITIGNORE_GUIDE.md)** - Git忽略规则说明
+
 ## 📈 更新日志
 
 ### v1.0.0 (2025-12-12)
@@ -504,3 +506,4 @@ A: 支持格式：
 - 📊 完整的审核报告生成
 - 🔧 可配置的审核点系统
 - 🚀 高性能并行处理架构
+- 📦 完整的安装和配置文档
