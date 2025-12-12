@@ -13,17 +13,27 @@ import mimetypes
 # 可选依赖
 try:
     import docx
-    import PyPDF2
-    import pdfplumber
-    from bs4 import BeautifulSoup
     DOCX_AVAILABLE = True
-    PDF_AVAILABLE = True
-    HTML_AVAILABLE = True
 except ImportError:
     DOCX_AVAILABLE = False
-    PDF_AVAILABLE = False
-    HTML_AVAILABLE = False
 
+try:
+    import PyPDF2
+    PDF_AVAILABLE = True
+except ImportError:
+    PDF_AVAILABLE = False
+
+try:
+    import pdfplumber
+    PDF_AVAILABLE = True
+except ImportError:
+    pass  # pdfplumber是可选的
+
+try:
+    from bs4 import BeautifulSoup
+    HTML_AVAILABLE = True
+except ImportError:
+    HTML_AVAILABLE = False
 
 @dataclass
 class TextChunk:
@@ -43,6 +53,11 @@ class TextChunk:
 
 class TextSplitter:
     """文本分割器"""
+
+    # 可用性标志
+    PDF_AVAILABLE = PDF_AVAILABLE
+    DOCX_AVAILABLE = DOCX_AVAILABLE
+    HTML_AVAILABLE = HTML_AVAILABLE
 
     def __init__(self, config: Dict[str, Any]):
         """

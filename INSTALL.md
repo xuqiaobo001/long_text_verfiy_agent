@@ -67,6 +67,43 @@ python examples/contract_review.py
 # 如果看到审核输出，说明安装成功！
 ```
 
+## 📄 支持的文件格式
+
+本系统支持多种文件格式的文档审核：
+
+### 主要格式
+- **PDF文档** (`.pdf`) - 完全支持，使用PyPDF2和pdfplumber进行文本提取
+- **Word文档** (`.docx`) - 完全支持，使用python-docx库
+- **纯文本** (`.txt`) - 直接支持
+- **Markdown** (`.md`) - 直接支持
+- **HTML网页** (`.html`, `.htm`) - 使用BeautifulSoup提取文本
+
+### 安装文件处理依赖
+```bash
+# 安装所有格式支持
+pip install -r requirements.txt
+
+# 或单独安装PDF处理
+pip install PyPDF2 pdfplumber
+
+# 或单独安装Word处理
+pip install python-docx
+
+# 或单独安装HTML处理
+pip install beautifulsoup4 lxml
+```
+
+### 测试文件格式支持
+```bash
+# 测试PDF支持
+python test_pdf_support.py
+
+# 测试具体文件
+python main.py your_document.pdf
+python main.py your_contract.docx
+python main.py your_article.txt
+```
+
 ## 📦 详细安装步骤
 
 ### 步骤 1: 环境准备
